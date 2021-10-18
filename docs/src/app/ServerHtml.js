@@ -22,6 +22,7 @@ const ServerHtml = ({ component, initialState, distPath }) => {
         <link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Sitecore JavaScript SDK Documentation" />
+        <meta name="google-site-verification" content="PZ5HzAN5JLyX5MIeevq5eX6GXHQnhZpl9NgaMDzZuDs" />
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
         {helmet.link.toComponent()}
