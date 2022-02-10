@@ -16,7 +16,7 @@ interface ComponentProps {
 }
 
 const Container = (props: ComponentProps): JSX.Element => {
-  var styles = `${props.params.GridParameters} ${props.params.Styles?.replace(/\|/g, ' ')}`;
+  var styles = `${props.params.GridParameters} ${props.params.Styles}`.replace(/\|/g, ' ');
   var phKey = `container-${props.params.DynamicPlaceholderId}`;
   var backgroundStyle;
   var backgroundImage = props.params.BackgroundImage as string;
