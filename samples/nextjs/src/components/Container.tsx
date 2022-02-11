@@ -22,7 +22,7 @@ const Container = (props: ComponentProps): JSX.Element => {
   var backgroundImage = props.params.BackgroundImage as string;
   if (backgroundImage) {
     var prefix = `${useSitecoreContext().sitecoreContext.pageState !== 'normal' ? '/sitecore/shell' : ''}/-/media/`
-    backgroundStyle = { backgroundImage: `url('${prefix}${backgroundImage?.match(/\{([^)]+)\}/)?.pop()?.replace(/\-/g,'')}')` };
+    backgroundStyle = { backgroundImage: `url('${prefix}${backgroundImage?.match(/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/gi)?.pop()?.replace(/\-/g,'')}')` };
   }
   if (props.rendering.placeholders && props.rendering.placeholders["container-{*}"]) {
     props.rendering.placeholders[phKey] = props.rendering.placeholders["container-{*}"];
