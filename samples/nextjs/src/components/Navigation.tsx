@@ -1,12 +1,7 @@
-import React, { Children } from 'react';
+import React from 'react';
 import {
-  RenderingVariants,
-  RenderingVariantProps,
   RenderingVariantParameters,
-  Image as JssImage,
-  Link as JssLink,
-  ImageField,
-  Field,
+  Link,
   LinkField,
   Text,
   ComponentRendering,
@@ -40,6 +35,16 @@ let getNavigationText = function (props: any): string {
   return text;
 };
 
+let getLinkField = function (props: any): LinkField {
+  let link: LinkField = {
+    value: {
+      href: props.fields.Href,
+      title: props.fields.DisplayName,
+    },
+  }
+  return link;
+}
+
 const Navigation = (props: ComponentProps): JSX.Element => {
 
   if (Object.values(props.fields).length === 0) {
@@ -56,7 +61,7 @@ const Navigation = (props: ComponentProps): JSX.Element => {
   for (let i = 0; i < Object.values(props.fields).length; i++) {
     const element = props.fields[i]; 
     if (element) {
-      list.push(<NavigationList fields={element} />);
+      list.push(<NavigationList key={i} fields={element} />);
     }
   }
 
@@ -74,21 +79,18 @@ const Navigation = (props: ComponentProps): JSX.Element => {
 };
 
 const NavigationList = (props: any) => {
-
-  let text = getNavigationText(props);
-
   if (props.fields.Children && props.fields.Children.length > 0) {
 
-    let children = [];
+    let children: JSX.Element[] = [];
 
-    props.fields.Children.map((element:Fields) => {
-      children.push(<NavigationList fields={element} />);
+    props.fields.Children.map((element:Fields, index:Number) => {
+      children.push(<NavigationList key={index} fields={element} />);
     });    
 
     return (            
       <li className={props.fields.Styles.join(" ")} key={props.fields.Id}>
           <div className="navigation-title">
-            <a title={props.fields.DisplayName} href={props.fields.Href}>{text}</a>
+            <Link field={getLinkField(props)}>{getNavigationText(props)}</Link>
           </div>
           <ul className="clearfix">
             {children}
@@ -99,7 +101,7 @@ const NavigationList = (props: any) => {
     return (
       <li className={props.fields.Styles.join(" ")} key={props.fields.Id}>
           <div className="navigation-title">
-            <a title={props.fields.DisplayName} href={props.fields.Href}>{text}</a>
+          <Link field={getLinkField(props)}>{getNavigationText(props)}</Link>
           </div>
       </li>     
     )
