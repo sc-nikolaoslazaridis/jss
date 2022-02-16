@@ -4,10 +4,10 @@ import {
   RenderingVariantProps,
   RenderingVariantParameters,
   ComponentRendering,
-  Link as JssLink,
-  LinkFieldValue,
+  Link,
   Text,
   useSitecoreContext,
+  LinkField,
 } from '@sitecore-jss/sitecore-jss-nextjs';
 import {
   TextField,
@@ -74,23 +74,25 @@ export const Default = (props: RenderingVariantProps<Fields>): JSX.Element => {
     value: datasource?.field?.jsonValue?.value,
     editable: datasource?.field?.jsonValue?.editable,
   };
-  let link: LinkFieldValue = {
-    href: datasource?.url?.path,
-    title: datasource?.field?.jsonValue?.value,
-    editable: true,
+  let link: LinkField = {
+    value: {
+      href: datasource?.url?.path,
+      title: datasource?.field?.jsonValue?.value,
+      editable: true,
+    },
   };
   if (useSitecoreContext().sitecoreContext.pageState !== 'normal') {
-    link.href += `?sc_site=${datasource?.url?.siteName}`;
+    link.value.href += `?sc_site=${datasource?.url?.siteName}`;
     if (!text.value) {
       text.value = "Title field";
-      link.href = "#";
+      link.value.href = "#";
     }
   }
   return (
     <ComponentContent styles={props.styles}>
-      <JssLink field={link}>
+      <Link field={link}>
         <Text field={text} />
-      </JssLink>
+      </Link>
     </ComponentContent>
   );
 };
