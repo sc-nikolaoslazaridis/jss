@@ -68,6 +68,7 @@ export const Default = (props: RenderingVariantProps<Fields>): JSX.Element => {
     for (let i = 0; i < datasource.children.results.length; i++) {
       let element = datasource.children.results[i].field.link;
       if (element) {
+        element.value.href = element.value?.href?.replace(/^\/|\/$/g, ''); //520836: remove leading/trailing slash
         list.push(
           <LinkListItem
             index={i}

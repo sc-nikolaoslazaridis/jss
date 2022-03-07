@@ -76,9 +76,8 @@ export const Default = (props: RenderingVariantProps<Fields>): JSX.Element => {
   };
   let link: LinkField = {
     value: {
-      href: datasource?.url?.path,
+      href: datasource?.url?.path.replace(/^\/|\/$/g, ''), //520836: remove leading/trailing slash
       title: datasource?.field?.jsonValue?.value,
-      editable: true,
     },
   };
   if (useSitecoreContext().sitecoreContext.pageState !== 'normal') {

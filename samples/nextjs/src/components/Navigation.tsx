@@ -38,7 +38,7 @@ let getNavigationText = function (props: any): string {
 let getLinkField = function (props: any): LinkField {
   let link: LinkField = {
     value: {
-      href: props.fields.Href,
+      href: props.fields.Href.replace(/^\/|\/$/g, ''), //520836: remove leading/trailing slash
       title: props.fields.DisplayName,
     },
   }
